@@ -3,7 +3,8 @@ Set oExec=wShell.Exec("mshta.exe ""about:<input type=file id=FILE><script>FILE.c
 sFileSelected = oExec.StdOut.ReadLine
 
 Set objExcel = CreateObject("Excel.Application")
-filepath =  sFileSelected
+Set objWorkbook = objExcel.Workbooks.Open(sFileSelected)
+objExcel.Visible = False
 objExcel.DisplayAlerts = True
 On Error Resume Next
 objExcel.Application.Run "'" & sFileSelected & "'!Module3.CreateUploadFile"
@@ -12,6 +13,7 @@ If objExcel.Workbooks.Count > 0 Then
 End If
 objExcel.Quit
 Set objExcel = Nothing
+Set objWorkbook = Nothing
 Set book = Nothing
 Set wShell = Nothing 
 Set oExec = Nothing 
